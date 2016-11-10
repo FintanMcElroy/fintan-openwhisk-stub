@@ -31,6 +31,7 @@ var ow = openwhisk({
 	namespace: 'fintan_mcelroy%40uk.ibm.com_fintan_us'});
 
 app.get("/invoke/:action", function(req, res) {
+	console.log("LOG - Inside the app.get(/invoke/:action) ...");
 	ow.packages.get().then(function(pkg) {
 		console.log("Returned from ow.packages.get with pkg : " + JSON.stringify(pkg));
 		console.log("Returned from ow.packages.get with pkg.response.result : " + JSON.stringify(pkg.response.result));
