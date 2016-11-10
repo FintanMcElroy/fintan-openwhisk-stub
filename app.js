@@ -25,11 +25,20 @@ var appEnv = cfenv.getAppEnv();
 var openwhisk = require('openwhisk');
 var ow = openwhisk({
 	api: 'https://openwhisk.ng.bluemix.net/api/v1/',
+	//api_key 'NjIyYWZjMDgtMjdhYy00YTA1LWI1YjYtMmQ3YzM0MDhkZjI1OkdObWVFV3hxUWhORjBtWTlXaHZjQk91TDl0dTlzRG02Ym5Jc1RWb1hPUHJYSXdGdVZUeU9kRmtMM09HTHhMYXg='
 	//api_key: '622afc08-27ac-4a05-b5b6-2d7c3408df25:GNmeEWxqQhNF0mY9WhvcBOuL9tu9sDm6bnIsTVoXOPrXIwFuVTyOdFkL3OGLxLax';
 	api_key: '622afc08-27ac-4a05-b5b6-2d7c3408df25:GNmeEWxqQhNF0mY9WhvcBOuL9tu9sDm6bnIsTVoXOPrXIwFuVTyOdFkL3OGLxLax',
 	namespace: 'fintan_mcelroy%40uk.ibm.com_fintan_us'});
 
 app.get("/invoke/:action", function(req, res) {
+	ow.packages.get().then(function(pkg) {
+		console.log("Returned from ow.packages.get with pkg : " + JSON.stringify(pkg));
+		console.log("Returned from ow.packages.get with pkg.response.result : " + JSON.stringify(pkg.response.result));
+	}).catch(function(err) {
+		console.log("ERROR Returned from ow.packages.get with err : " + JSON.stringify(err));
+	});
+	console.log("ow.actions.invoke -> actionName: req.params.action " + req.params.action );
+	console.log("ow.actions.invoke -> params: req.query " + req.query);
 	ow.actions.invoke({
 		blocking: true,
 		actionName: req.params.action,
